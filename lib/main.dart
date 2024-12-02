@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:idle_clicker_game/elements/my_button.dart';
+import 'package:idle_clicker_game/home_page.dart';
 import 'package:idle_clicker_game/my_provider.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +27,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MainClass(title: 'Flutter Demo Home Page'),
+      home: const MainClass(title: 'LA GUERRA - l\'idle game'),
     );
   }
 }
@@ -40,10 +42,6 @@ class MainClass extends StatefulWidget {
 
 class _MainClassState extends State<MainClass> {
   Timer? timer;
-
-  void _incrementCounter() {
-    Provider.of<StateModel>(context, listen: false).nDefeatedToilets += 1;
-  }
 
   void runGameLoop() {
     context.read<StateModel>().runGameLoop();
@@ -66,77 +64,52 @@ class _MainClassState extends State<MainClass> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: HomePage(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => {context.read<StateModel>().destroyToilets(1)},
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  HomePage({
-    super.key,
-  });
-
-  var f = NumberFormat.compact();
-
-  @override
-  Widget build(BuildContext context) {
-    return Consumer<StateModel>(
-      builder: (context, state, child) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              'You have destroyed ${f.format(state.nDefeatedToilets)} toilets.',
-            ),
-            Text(
-              'You have gained ${state.fame} fame points.',
-            ),
-            const Divider(),
-            Text(
-              'You have ${state.nFollowers} followers.',
-            ),
-            MyButton(
-                enabled: false,
-                onPressed: () {
-                  state.hireFollowers(1);
-                },
-                text:
-                    'Hire a new follower (cost: ${StateModel.followerCost} fame points)')
-          ],
-        );
-      },
-    );
-  }
-}
-
-class MyButton extends StatelessWidget {
-  final bool enabled;
-  final Function onPressed;
-  final String text;
-
-  const MyButton(
-      {super.key,
-      required this.enabled,
-      required this.onPressed,
-      required this.text});
-
-  @override
-  Widget build(BuildContext context) {
-    return OutlinedButton(
-      onPressed: () {
-        onPressed();
-      },
-      child: Text(text),
+    return Row(
+      children: [
+        const Expanded(
+          flex: 2,
+          child: SizedBox(),
+        ),
+        Expanded(
+          flex: 3,
+          child: Column(
+            children: [
+              const Expanded(
+                flex: 1,
+                child: SizedBox(),
+              ),
+              Expanded(
+                flex: 8,
+                child: Scaffold(
+                  appBar: AppBar(
+                    backgroundColor:
+                        Theme.of(context).colorScheme.inversePrimary,
+                    title: Text(widget.title),
+                  ),
+                  body: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: HomePage(),
+                  ),
+                  floatingActionButton: FloatingActionButton(
+                    onPressed: () =>
+                        {context.read<StateModel>().destroyToilets(1)},
+                    tooltip: 'Increment',
+                    child: const Icon(Icons.add),
+                  ), // This trailing comma makes auto-formatting nicer for build methods.
+                ),
+              ),
+              const Expanded(
+                flex: 1,
+                child: SizedBox(),
+              ),
+            ],
+          ),
+        ),
+        const Expanded(
+          flex: 2,
+          child: SizedBox(),
+        ),
+      ],
     );
   }
 }
