@@ -1,6 +1,8 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:idle_clicker_game/dev_panel.dart';
 import 'package:idle_clicker_game/elements/my_button.dart';
 import 'package:idle_clicker_game/home_page.dart';
 import 'package:idle_clicker_game/my_provider.dart';
@@ -67,9 +69,9 @@ class _MainClassState extends State<MainClass> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const Expanded(
+        Expanded(
           flex: 2,
-          child: SizedBox(),
+          child: kDebugMode ? DevPanel() : const Placeholder(),
         ),
         Expanded(
           flex: 3,

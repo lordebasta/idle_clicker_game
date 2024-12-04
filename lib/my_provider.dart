@@ -10,7 +10,11 @@ class StateModel extends ChangeNotifier {
 
   int nFollowers = 0;
   Duration timePassed = const Duration();
+
   int fame = 0;
+  int toiletsPerFameRatio = 10;
+  int fameIncrementCounter = 0;
+
   int food = 0;
   int nDefeatedToilets = 0;
   int followerDestroyingTimeInMs = 2000;
@@ -18,7 +22,12 @@ class StateModel extends ChangeNotifier {
 
   void destroyToilets(int amount) {
     nDefeatedToilets += amount;
-    fame = (nDefeatedToilets / 10).floor();
+    fameIncrementCounter += amount;
+
+    if (fameIncrementCounter >= toiletsPerFameRatio) {
+      fame += (fameIncrementCounter / toiletsPerFameRatio).floor();
+      fameIncrementCounter %= toiletsPerFameRatio;
+    }
   }
 
   void runGameLoop(int deltaInMs) {
