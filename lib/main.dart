@@ -43,16 +43,17 @@ class MainClass extends StatefulWidget {
 class _MainClassState extends State<MainClass> {
   Timer? timer;
 
-  void runGameLoop() {
-    context.read<StateModel>().runGameLoop();
+  void runGameLoop(int deltaInMs) {
+    context.read<StateModel>().runGameLoop(deltaInMs);
   }
 
   @override
   void initState() {
     super.initState();
+    int deltaInMs = 10;
     timer = Timer.periodic(
-      const Duration(seconds: 1),
-      (Timer t) => runGameLoop(),
+      Duration(milliseconds: deltaInMs),
+      (Timer t) => runGameLoop(deltaInMs),
     );
   }
 

@@ -11,6 +11,11 @@ class HomePage extends StatelessWidget {
 
   var f = NumberFormat.compact();
 
+  String getProgressItaly(int current) {
+    double percentile = current / StateModel.toiletsInItaly * 100;
+    return percentile.toStringAsFixed(2);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<StateModel>(
@@ -18,9 +23,15 @@ class HomePage extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            Text(
+              'Sono passati ${state.timePassed.inDays} giorni',
+            ),
             const Header(text: 'Cessi'),
             Text(
-              'Hai intasato ${f.format(state.nDefeatedToilets)} cessi.',
+              'Hai intasato ${f.format(state.nDefeatedToilets)} cessi. Hai conquistato il ${getProgressItaly(state.nDefeatedToilets)}% dell\'Italia',
+            ),
+            Text(
+              'Hai ${f.format(state.food)} cibo.',
             ),
             Text(
               'Hai ${state.fame} punti fama.',
@@ -53,6 +64,7 @@ class Header extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        const SizedBox(height: 10),
         Text(
           text,
           style: const TextStyle(
