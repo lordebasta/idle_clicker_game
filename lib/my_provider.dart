@@ -45,8 +45,12 @@ class StateModel extends ChangeNotifier {
   }
 
   void hireFollowers(int amount) {
+    int cost = amount * followerCost;
+    if (fame < cost) {
+      return;
+    }
     nFollowers += amount;
-    fame -= followerCost;
+    fame -= cost;
     notifyListeners();
   }
 }

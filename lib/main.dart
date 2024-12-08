@@ -3,10 +3,8 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:idle_clicker_game/dev_panel.dart';
-import 'package:idle_clicker_game/elements/my_button.dart';
 import 'package:idle_clicker_game/home_page.dart';
 import 'package:idle_clicker_game/my_provider.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 void main() {
