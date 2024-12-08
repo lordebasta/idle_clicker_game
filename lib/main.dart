@@ -69,7 +69,7 @@ class _MainClassState extends State<MainClass> {
       children: [
         Expanded(
           flex: 2,
-          child: kDebugMode ? DevPanel() : const Placeholder(),
+          child: kDebugMode ? DevPanel() : const SizedBox(),
         ),
         Expanded(
           flex: 3,
