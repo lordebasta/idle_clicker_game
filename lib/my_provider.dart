@@ -13,14 +13,14 @@ class StateModel extends ChangeNotifier {
 
   int fame = 0;
   int toiletsPerFameRatio = 10;
-  int fameIncrementCounter = 0;
+  double fameIncrementCounter = 0;
 
   int food = 0;
-  int nDefeatedToilets = 0;
+  double nDefeatedToilets = 0;
   int followerDestroyingTimeInMs = 2000;
   double followerDestroyingTimerInMs = 0;
 
-  void destroyToilets(int amount) {
+  void destroyToilets(double amount) {
     nDefeatedToilets += amount;
     fameIncrementCounter += amount;
 
@@ -36,11 +36,10 @@ class StateModel extends ChangeNotifier {
     // 1 ms irl = 3.6 seconds in game = 3600 ms in game
     timePassed += Duration(milliseconds: 3600 * deltaInMs);
 
-    followerDestroyingTimerInMs += deltaInMs;
-    if (followerDestroyingTimeInMs <= followerDestroyingTimerInMs) {
-      destroyToilets(nFollowers);
-      followerDestroyingTimerInMs = 0;
-    }
+    double nDestroyedToilets =
+        nFollowers * (deltaInMs / followerDestroyingTimeInMs);
+    destroyToilets(nDestroyedToilets);
+
     notifyListeners();
   }
 

@@ -9,9 +9,13 @@ class HomePage extends StatelessWidget {
     super.key,
   });
 
-  var f = NumberFormat.compact();
+  String prettifyDouble(double number) {
+    var f = NumberFormat.compact();
+    int casted = number.round();
+    return f.format(casted);
+  }
 
-  String getProgressItaly(int current) {
+  String getProgressItaly(double current) {
     double percentile = current / StateModel.toiletsInItaly * 100;
     return percentile.toStringAsFixed(2);
   }
@@ -28,10 +32,10 @@ class HomePage extends StatelessWidget {
             ),
             const Header(text: 'Cessi'),
             Text(
-              'Hai intasato ${f.format(state.nDefeatedToilets)} cessi. Hai conquistato il ${getProgressItaly(state.nDefeatedToilets)}% dell\'Italia',
+              'Hai intasato ${prettifyDouble(state.nDefeatedToilets)} cessi. Hai conquistato il ${getProgressItaly(state.nDefeatedToilets)}% dell\'Italia',
             ),
             Text(
-              'Hai ${f.format(state.food)} cibo.',
+              'Hai ${prettifyDouble(state.food as double)} cibo.',
             ),
             Text(
               'Hai ${state.fame} punti fama.',
