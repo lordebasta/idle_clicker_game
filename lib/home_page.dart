@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:idle_clicker_game/elements/my_button.dart';
+import 'package:idle_clicker_game/elements/text_with_tooltip.dart';
 import 'package:idle_clicker_game/my_provider.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -27,22 +28,31 @@ class HomePage extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'Sono passati ${state.timePassed.inDays} giorni',
+            TextWithTooltip(
+              text: 'Sono passati ${state.timePassed.inDays} giorni',
+              tooltip:
+                  'Tempo passato dall\'inizio della guerra. Un secondo di gioco è un\'ora in gioco',
             ),
             const Header(text: 'Cessi'),
-            Text(
-              'Hai intasato ${prettifyDouble(state.nDefeatedToilets)} cessi. Hai conquistato il ${getProgressItaly(state.nDefeatedToilets)}% dell\'Italia',
+            TextWithTooltip(
+              text:
+                  'Hai intasato ${prettifyDouble(state.nDefeatedToilets)} cessi. Hai conquistato il ${getProgressItaly(state.nDefeatedToilets)}% dell\'Italia',
+              tooltip: '',
             ),
-            Text(
-              'Hai ${prettifyDouble(state.food as double)} cibo.',
+            TextWithTooltip(
+              text: 'Hai ${prettifyDouble(state.food as double)} cibo.',
+              tooltip:
+                  'Il cibo ti serve per continuare la guerra. Per intasare un cesso hai bisogno di uno di cibo.',
             ),
-            Text(
-              'Hai ${state.fame} punti fama.',
+            TextWithTooltip(
+              text: 'Hai ${state.fame} punti fama.',
+              tooltip:
+                  'Più avanzi nella guerra, più fama ottieni. 10 cessi intasati sono uno di fama.',
             ),
             const Divider(),
-            Text(
-              'Hai ${state.nFollowers} soldati con te.',
+            TextWithTooltip(
+              text: 'Hai ${state.nFollowers} soldati con te.',
+              tooltip: 'Ogni soldato intasa un cesso ogni due ore.',
             ),
             MyButton(
               enabled: false,
